@@ -84,6 +84,21 @@ Current `scripts/build-nanosvg-aros.sh` is an architecture-aware *rebuilder*: it
 
 Next evidence should prioritize historical versions of the build scripts using `git show 384eeaf...:<path>` (where existing), local SDK builder scripts and generated build logs, actual source checksums and archive member provenance. Read-only collection only; no repo reset, submodule update or private code publication.
 
+## Exact historical AFM build commands — owner terminal, 2026-11-23
+
+Read-only `git ls-tree 384eeaf25214142aeeb93792fc45ae0858d67d07 thirdparty/` and grep-based inventory show the historical commit **has no `thirdparty/` tree or pinned dependency gitlinks**. This is not evidence that vendor dependencies were absent at build time: the build referenced external checkout trees.
+
+The actual **historical** `applications/afilemanager/scripts/build.sh` (from `git show`) gives the following evidence:
+
+- `NANOSVG_ROOT` defaults to `$AROS_ROOT/dev/AROS/libraries/nanosvg`, with existing archive `$NANOSVG_ROOT/build/libarosa_nanosvg.a`; the script checks it exists.
+- `source/platform/aros/fonts/arosa_freetype2_bridge.c` is compiled with `$AROS_CC -O2 -fno-common` into `$AROSA_BUILD/fontbridge/libarosa_freetype2_bridge.a`.
+- `source/platform/vectorgraphics/build-tvg.sh aros $AROSA_BUILD/tvg` is invoked to construct `libarosa_tvg.a`.
+- `source/platform/webfont/build-wf.sh aros $AROSA_BUILD/<WF_OUT>` is invoked to construct `libarosa_wf.a` (exact `WF_OUT` assignment not yet supplied).
+- Final AFileManager invocation of `$AROS_COLLECT` references `-L` paths for AROS libs, RTL, bindings, NanoSVG, FreeType bridge, ThorVG and webfont, and links `-larosa_tvg -lstdc++`, conditional C++ ABI objects, `-larosa_wf -larosa_freetype2_bridge -lfreetype2 -lposixc -lstdcio -lstdc -lm -lgcc`. The snippet does not itself demonstrate which linker response-file objects include NanoSVG.
+- SDK 0.18.6 current candidate contains five .a libraries and compiled Pascal units; distinguishing bundled .a contents from external `-lfreetype2` and RTL/runtime dependencies is required.
+
+Next review historical contents of `source/platform/vectorgraphics/build-tvg.sh`, `source/platform/webfont/build-wf.sh`, original NanoSVG build script in AROS tree, and their source tree checksums (not only today's HEAD). Historical vendors' exact revisions, compiled-code license obligations and source correspondence are still unresolved; no binary release.
+
 ## Binary release gates
 
 1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
