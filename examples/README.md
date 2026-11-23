@@ -41,7 +41,7 @@ file "$OUTPUT_DIR/HelloAROSA"
 ### Verification status
 
 - The script follows the historical AFileManager compiler/linker command pattern. Validate it with `bash -n` locally before running; a real AROS compile/link of this particular example is still required.
-- **A real AROS compile/link of this new minimal example has not yet been performed**, and its successful runtime execution on AROS is unverified.
+- **A real x86_64 AROS compile/link of this minimal example PASSED on Mint-DT on 2026-11-23**, using the historical AROSA environment. The resulting `HelloAROSA` was identified by `file` as `ELF 64-bit LSB relocatable, x86-64, version 1 (AROS Research Operating System), not stripped`. Its execution on a booted AROS system is not yet verified.
 - The owner previously compiled and linked the more substantial [AFileManager](https://github.com/danilos/AFileManager) against historical SDK binaries and verified graphical startup on x86_64 AROS. That is independent evidence for the SDK/toolchain approach, **not** a passing test for this new script.
 
 ### AROS link considerations
@@ -68,10 +68,10 @@ export SDK_ROOT="$EXAMPLE/sdk" OUTPUT_DIR="$EXAMPLE/output"
 bash "$EXAMPLE/build-hello-arosa.sh"
 ```
 
-The workflow intentionally does **not** invent compiler paths or SMP settings. The compiler and linker variables must be set using the already working historical AROS toolchain, not substituted with host compilers. This validates the new minimal example and creates all files solely under `TRANSFER/`. **Do not claim the example passed on Mint-DT until actual terminal output confirms it.**
+The workflow intentionally does **not** invent compiler paths or SMP settings. The compiler and linker variables must be set using the already working historical AROS toolchain, not substituted with host compilers. This validates the new minimal example and creates all files solely under `TRANSFER/`. **The owner has since confirmed Mint-DT compilation and linking PASS (2026-11-23); running the resulting executable on AROS remains an independent check.**
 
 ## What was tested
 
-The owner previously verified x86_64 AFileManager compilation, linking and graphical startup. The **new minimal example has not yet been compiled or run**. The host-side validator uses only Python's standard library and can be run against the private 481-file, 480-hash candidate without extracting it.
+The owner previously verified x86_64 AFileManager compilation, linking and graphical startup. The **new minimal HelloAROSA example has now also compiled and linked successfully**, but has **not yet been run on AROS**. The host-side validator uses only Python's standard library and can be run against the private 481-file, 480-hash candidate without extracting it.
 
 No SDK binary is included in this examples directory. The original AROSA source remains private; third-party licenses stay with their owners.
