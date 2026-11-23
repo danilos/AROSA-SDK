@@ -126,6 +126,10 @@ The user independently cloned three vendor repositories into `~/dev/AROSA-SDK-ve
 
 The commits identify a preserved local source baseline matching the *current* AROSA submodule pointers. They were imported on 2026-11-04 and do not by themselves show the source revisions in use when the 0.18.6 SDK binaries were compiled; the historical AROSA commit does not pin the vendor directories. Remaining checks: comparison of archive source-member names against the cloned source tree, compilation timestamps/build logs or reproducible rebuilds, NanoSVG original bridge attribution, and compiled AROSA/FPC/AROS licensing.
 
+## Exact structural source-count comparison — owner terminal, 2026-11-23
+
+Owner compared the already audited five-library x86_64 SDK private ZIP with vendor audit clones (clean Gitea imports). Observed 43 ThorVG `.cpp` files in `AROSA-ThorVG/src`; historical `build-tvg.sh` compiles every such source in its four scanned subdirectories and one original `arosa_tvg.c` glue file. **44 expected objects versus 44 library archive members**. Observed 10 Brotli `.c` files under `c/common` and `c/dec`, and all three tinf sources (`tinflate.c`, `tinfzlib.c`, `adler32.c`); historical `build-wf.sh` also compiles `arosa_wf.c`, giving **14 expected objects versus 14 archive members**. This is a **structural count match**, not a member-by-member names/digests comparison and not byte-identical reproducible build proof; do not mark exact vendor binary provenance as cleared on these counts alone.
+
 ## Binary release gates
 
 1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
