@@ -1,5 +1,8 @@
 # Example: consume an AROSA service
 
+**AROSA**  
+*Written for AROS*
+
 Author: **DaniloS**. This is a **source-grounded integration pattern**, not a standalone compiled test.
 
 In the public historical [AFileManager.Help.pas](https://github.com/danilos/AFileManager/blob/main/AFileManager.Help.pas), the application uses `Arosa.Services.Documentation` and `Arosa.Services.Presentation` instead of implementing help navigation and HTML display itself.
