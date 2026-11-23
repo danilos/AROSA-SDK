@@ -10,7 +10,7 @@ Public developer entry point for applications using AROSA capability, service, p
 
 The initial historical baseline is AROSA **0.18.6.0.0.0**, revision `384eeaf`. **Both i386 and x86_64 SDK compilation/link tests have now passed.** On each architecture, the public [AFileManager](https://github.com/danilos/AFileManager) application source independently compiled and linked against compiled AROSA SDK dependencies without using private AROSA Pascal source. The x86_64 output was identified by `file` as **ELF 64-bit, x86-64, AROS**, and its historical executable was about 17 MB.
 
-**Runtime status:** The owner reports the i386 SDK-built AFileManager did not open in the AROS test environment; the cause has not been established. **x86_64 runtime launch has not yet been tested.** Successful linking is not a runtime guarantee. Issue reports are welcome at [GitHub Issues](https://github.com/danilos/AROSA-SDK/issues).
+**Runtime status:** The owner reports the i386 SDK-built AFileManager did not open in the AROS test environment; the cause has not been established. **x86_64 runtime startup and graphical UI rendering have now been verified** by an owner-provided AROS screenshot (AFileManager 0.18.6.0.0.0, visible workspace and file panes). Broader filesystem operations and clean-exit behavior are still unverified. Successful linking is not a runtime guarantee. Issue reports are welcome at [GitHub Issues](https://github.com/danilos/AROSA-SDK/issues).
 
 ## Contents and availability
 
