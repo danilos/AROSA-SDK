@@ -141,6 +141,17 @@ Owner executed a read-only Python audit of the uploaded 0.18.6.0.0.0 x86_64 priv
 
 **Scope:** archive member names and structural source-composition correspondence. Does not prove that the exact source bytes, compiler or build flags from cloned 2026-11-04 Gitea import were used to generate the historical archive. All other release gates remain separate. The user provided this result directly from Mint-DT; no current independent byte-level rerun in the assistant's environment was performed for these source-tree comparisons.
 
+## Private notices candidate: complete integrity verification — owner Mint-DT, 2026-11-23
+
+Owner ran a read-only byte-comparison of `AROSA-SDK-0.18.6.0.0.0-x86_64-REVIEW-READY-PRIVATE.zip` and `AROSA-SDK-0.18.6.0.0.0-x86_64-NOTICES-PRIVATE.zip` located beneath the authorized `.../TRANSFER/AFileManager-0.30.19.2.0.0/` delivery folder. User-reported results:
+
+- Compiled `.ppu`, `.o`, `.a` artifacts: **473**; byte-changed: **0**.
+- New SHA256SUMS entries: **480**; absent/unexpected/duplicate entries: **0**; SHA256 mismatches: **0**.
+- Exactly six files added under `THIRD-PARTY-NOTICES/`: ThorVG-LICENSE, Brotli-LICENSE, tinf-LICENSE, NanoSVG-nanosvg.h-NOTICE.txt, NanoSVG-nanosvgrast.h-NOTICE.txt, README.txt. Original files removed: **0**.
+- Total files: **481** (earlier verified ZIP CRC `unzip -t`: pass). Script reported **OVERALL: PASS**.
+
+**Gate CLOSED:** package integrity, checksum coverage, authentic-notice inclusion, and preservation of all compiled artifacts. **Open gates:** license/copyright review for compiled AROSA units, FPC/AROS bindings, C++ ABI and bridges, historical source-byte-to-binary traceability, independent toolchain/ABI and wider runtime testing. PRIVATE candidate only: no public SDK binary released.
+
 ## Binary release gates
 
 1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
