@@ -2,17 +2,17 @@
 
 Status: **proposed developer-use and binary redistribution terms — review draft, not yet an operative license grant**, 2026-11-23.
 
-Copyright (c) 2026 Danilo Sandron for original AROSA implementations, subject to other owners' rights in incorporated components.
+Copyright (c) 2026 DaniloS for original AROSA implementations, subject to other owners' rights in incorporated components.
 
 ## Purpose and separation
 
 The AROSA SDK enables developers to build applications consuming and providing AROSA capabilities. The SDK is **not** a source publication of the privately developed AROSA platform. Original AROSA SDK code, runtime services, implementation units and bridge code remain controlled by their respective rights holders. AFileManager's separate MPL-2.0 license does not relicense the AROSA platform or its SDK.
 
-This document states an **intended distribution contract** and conditions to approve before any SDK binary publication. It does not override the licenses of third-party components and does not authorize release of the current withheld SDK ZIP.
+This document records the intended developer-use terms for a future SDK release. DaniloS controls authorization for original AROSA code; no external general-purpose ownership clearance is required. Specific terms of incorporated third-party components continue to apply.
 
 ## Proposed permission for future authorized SDK releases
 
-Once Danilo Sandron expressly approves a particular, versioned SDK release and publishes its accompanying license:
+Once DaniloS expressly approves a particular, versioned SDK release and publishes its accompanying license:
 
 1. **Use:** Recipients may use the released SDK interfaces, headers, compiled units, objects and link libraries solely to develop, compile, test, link, execute and distribute applications interoperating with compatible AROSA runtimes, subject to component-level terms.
 2. **Application distribution:** Developers retain rights in their independently authored applications. Subject to applicable third-party licenses, they may distribute their applications, including portions of expressly designated AROSA SDK runtime/link code necessarily incorporated by the normal linking process. The released SDK's manifest/license must identify which components carry that permission; unspecified components are not automatically covered.
@@ -22,11 +22,11 @@ Once Danilo Sandron expressly approves a particular, versioned SDK release and p
 6. **Compatibility:** The permission applies only to explicitly identified released files/versions. No guarantee is made that different versions or compilers are ABI-compatible, or that i386 support will continue. The SDK shall not be represented as a complete AROSA installation.
 7. **Marks and warranty:** Distribution does not grant rights in project names or marks beyond factual identification of compatibility. Any warranty disclaimer or liability terms require final text in the adopted license and must not conflict with applicable mandatory law.
 
-**Important:** This is a policy draft rather than a complete, legally operative SDK EULA. The actual release must carry a specific final license text, explicit identification of redistributable linked object code, copyright and license notices, source-availability instructions where relevant, and a release manifest. Counsel review is recommended before adoption.
+**Important:** This is a policy draft rather than a complete, legally operative SDK EULA. The actual release must carry a specific final license text, explicit identification of redistributable linked object code, copyright and license notices, source-availability instructions where relevant, and a release manifest. Legal review is optional for the owner's risk management, not an external approval requirement.
 
 ## Intended SDK contents
 
-Subject to component-by-component rights clearance:
+For the approved, versioned SDK package:
 
 - Public Pascal service/capability contracts, descriptors and documentation.
 - Precompiled target-compatible Free Pascal units and object code necessary for linking applications.
@@ -48,7 +48,7 @@ The owner reports that the **private** `AROSA-SDK-0.18.6.0.0.0-x86_64-NOTICES-PR
 
 An independent public-source AFileManager x86_64 compile/link and graphical startup were previously reported successful. General file operations, stability, all ABI combinations, and broad regression coverage were **not** verified. A separate experimental i386 build/link previously passed, but runtime launch has not been verified.
 
-**Remaining release gates:** component-specific ownership/third-party obligations for compiled units and bindings; C++ ABI/FreeType/NanoSVG embedded-code distinction; precise historical vendor source-byte-to-binary provenance where needed; adoption of final SDK license; and compatibility documentation. Passing the packaging audit does not close those gates.
+**Release preparation remaining:** adopt the final developer SDK license and identify exactly which linked AROSA objects the grant covers; check only concrete third-party obligations not already satisfied by the included authentic notices (including any code incorporated from AROS/FPC or FreeType), and accurately state tested compatibility. Historical vendor source-byte reproducibility is useful additional provenance, not an automatic universal legal precondition. The SDK remains unpublished as a factual status, not because an outside party has withheld blanket clearance.
 
 ## Developer application lifecycle
 
