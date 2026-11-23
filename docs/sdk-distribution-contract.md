@@ -42,13 +42,13 @@ For the approved, versioned SDK package:
 4. Verify a clean consumer build/link without private source paths, then separately test actual runtime operation. Record the specific test coverage.
 5. Publish only architectures that pass their relevant gates, with an immutable release name and checksum.
 
-## Historical x86_64 candidate — 0.18.6.0.0.0
+## Historical x86_64 SDK release — 0.18.6.0.0.0
 
-The owner reports that the **private** `AROSA-SDK-0.18.6.0.0.0-x86_64-NOTICES-PRIVATE.zip` under the authorized `.../TRANSFER/AFileManager-0.30.19.2.0.0/` directory passed CRC, SHA-256 manifest and byte-preservation tests: 481 files; 480 checksums; 473 compiled unit/object/archive files identical to the previous reviewed private ZIP; six third-party notice files added; no original file removed. The original and new SDK archives have **not** been published.
+The official [GitHub release](https://github.com/danilos/AROSA-SDK/releases/tag/v0.18.6.0.0.0-x86_64) contains a **licensed self-contained archive** `AROSA-SDK-0.18.6.0.0.0-x86_64-LICENSED.zip`. Owner Mint-DT output confirmed upload success and asset listing on 23 November 2026. SHA-256: `36e1c7ce16974b8e8456e3fa28a9d8f6048ac563d1eb6e2cfb3c0c8902d37f92`. The official `SDK-LICENSE.md` is inside the ZIP, with 482 ZIP entries, 481 manifest hashes, 473 byte-preserved compiled artifacts, and six authentic third-party notice files; ZIP CRC and complete SHA-256 validation passed.
 
-An independent public-source AFileManager x86_64 compile/link and graphical startup were previously reported successful. General file operations, stability, all ABI combinations, and broad regression coverage were **not** verified. A separate experimental i386 build/link previously passed, but runtime launch has not been verified.
+The previous `AROSA-SDK-0.18.6.0.0.0-x86_64-NOTICES-PRIVATE.zip` asset is superseded; its removal from the release is still pending final owner action. AFileManager x86_64 independent build/link and GUI launch PASS; HelloAROSA independent x86_64 build/link PASS. General file operations, stability, ABI variations and HelloAROSA runtime execution have not been broadly verified. The i386 build is experimental and not part of this release.
 
-**Release preparation remaining:** adopt the final developer SDK license and identify exactly which linked AROSA objects the grant covers; check only concrete third-party obligations not already satisfied by the included authentic notices (including any code incorporated from AROS/FPC or FreeType), and accurately state tested compatibility. Historical vendor source-byte reproducibility is useful additional provenance, not an automatic universal legal precondition. The SDK remains unpublished as a factual status, not because an outside party has withheld blanket clearance.
+The adopted developer license covers original AROSA-authored SDK components while respecting independent third-party licenses. Any distinct source-availability duties for incorporated third-party materials remain governed by their applicable licenses.
 
 ## Developer application lifecycle
 
