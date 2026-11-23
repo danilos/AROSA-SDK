@@ -13,8 +13,7 @@ Download the [licensed SDK binary](https://github.com/danilos/AROSA-SDK/releases
 2. [build-hello-arosa.sh](build-hello-arosa.sh) — compiles and links the sample with the matching AROS cross-compiler and `collect-aros` linker.
 3. [inspect_sdk.py](inspect_sdk.py) — checks an SDK ZIP’s CRC, manifest and compiled-file inventory without extracting or modifying it.
 4. [service-pattern.md](service-pattern.md) — documentation-service consumption example derived from AFileManager.
-5. [package-sdk-license.py](package-sdk-license.py) — historical release-maintenance utility for producing a new ZIP containing the developer license; **not required** for the current licensed download.
-6. [AFileManager](https://github.com/danilos/AFileManager) — complete example application source, released separately under MPL-2.0.
+5. [AFileManager](https://github.com/danilos/AFileManager) — complete example application source, released separately under MPL-2.0.
 
 ## Build HelloAROSA
 
