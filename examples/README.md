@@ -8,7 +8,8 @@ Author: **DaniloS**. Historical SDK target: **AROSA 0.18.6.0.0.0**; x86_64 AROS 
 2. [Build and link the example](build-hello-arosa.sh) — standalone cross-compile + `collect-aros` script using only SDK, matching RTL, compiler and target libraries; writes only to a pre-existing empty output directory.
 3. [Validate an SDK archive](inspect_sdk.py) — runs on the development host, checks its ZIP contents, the complete SHA-256 manifest, and reports what can be imported. **No extraction, no writes.**
 4. [Service usage pattern](service-pattern.md) — actual AROSA documentation-service calls taken from the public AFileManager source, with lifecycle/ownership guidance.
-5. [Existing full application](https://github.com/danilos/AFileManager) — the historical public AFileManager source is the largest working integration example. Its original `scripts/build.sh` refers to a **private AROSA build environment**; do not run that script unmodified expecting a standalone SDK build.
+5. [Add the developer license to the historical binary SDK](package-sdk-license.py) — read-only verification of the original ZIP and a new, separately named, checksummed ZIP with SDK-LICENSE.md; the original remains unchanged.
+6. [Existing full application](https://github.com/danilos/AFileManager) — the historical public AFileManager source is the largest working integration example. Its original `scripts/build.sh` refers to a **private AROSA build environment**; do not run that script unmodified expecting a standalone SDK build.
 
 ## Build and link the minimal example
 
@@ -75,3 +76,9 @@ The workflow intentionally does **not** invent compiler paths or SMP settings. T
 The owner previously verified x86_64 AFileManager compilation, linking and graphical startup. The **new minimal HelloAROSA example has now also compiled and linked successfully**, but has **not yet been run on AROS**. The host-side validator uses only Python's standard library and can be run against the private 481-file, 480-hash candidate without extracting it.
 
 No SDK binary is included in this examples directory. The original AROSA source remains private; third-party licenses stay with their owners.
+
+## Packaging the official SDK developer license (post-release correction)
+
+The initial GitHub x86_64 SDK asset was published before the actual `SDK-LICENSE.md` was embedded in the ZIP. The [SDK developer license](../SDK-LICENSE.md) is published in this repository; for a self-contained archive, use [package-sdk-license.py](package-sdk-license.py) to add the **byte-identical** official license and update `SHA256SUMS` in a **new archive**. It refuses overwrite, requires the original verified SHA-256 `4779997aff0b6c61ac8047c56918106ba81d57199f11fd3c36671a0cf3bb417c`, verifies the complete manifest and CRC before writing, compares every unchanged file byte for byte, and verifies the new manifest.
+
+The expected counts after packaging are **482 entries, 481 hashes, 473 unchanged compiled artifacts and 6 retained third-party notices**. The new ZIP should be published as a new GitHub Release asset only after successful owner-side validation. The original release asset remains available until the replacement has been uploaded and verified. The script never modifies private AROSA source or the original archive.
