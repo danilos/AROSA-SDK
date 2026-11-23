@@ -1,35 +1,35 @@
 # AROSA SDK examples
 
-Author: **DaniloS**. Historical SDK target: **AROSA 0.18.6.0.0.0**; x86_64 AROS is the primary supported experimental target. These examples are source/documentation, **not a claim of new runtime tests**.
+**AROSA**  
+*Written for AROS*
 
-## Start here
+Version **0.18.6.0.0.0** · x86_64 AROS · Original AROSA author: **DaniloS**
 
-1. [Minimal Pascal SDK consumer](hello_arosa.pas) — imports a compiled AROSA SDK unit using the ordinary Free Pascal `uses` mechanism.
-2. [Build and link the example](build-hello-arosa.sh) — standalone cross-compile + `collect-aros` script using only SDK, matching RTL, compiler and target libraries; writes only to a pre-existing empty output directory.
-3. [Validate an SDK archive](inspect_sdk.py) — runs on the development host, checks its ZIP contents, the complete SHA-256 manifest, and reports what can be imported. **No extraction, no writes.**
-4. [Service usage pattern](service-pattern.md) — actual AROSA documentation-service calls taken from the public AFileManager source, with lifecycle/ownership guidance.
-5. [Add the developer license to the historical binary SDK](package-sdk-license.py) — read-only verification of the original ZIP and a new, separately named, checksummed ZIP with SDK-LICENSE.md; the original remains unchanged.
-6. [Existing full application](https://github.com/danilos/AFileManager) — the historical public AFileManager source is the largest working integration example. Its original `scripts/build.sh` refers to a **private AROSA build environment**; do not run that script unmodified expecting a standalone SDK build.
+Download the [licensed SDK binary](https://github.com/danilos/AROSA-SDK/releases/tag/v0.18.6.0.0.0-x86_64), including compiled Pascal units, native libraries, `SDK-LICENSE.md`, third-party notices and a checksum manifest.
 
-## Build and link the minimal example
+## Examples
 
-Obtain a licensed SDK ZIP, extract it into an existing directory **under your approved development area**, and use the toolchain/AROS RTL that produced the SDK units. The historical tested target is x86_64 AROS, and the `AROS_BINCOMPAT` and SMP compile definitions **must match** the SDK's compiled binding layout.
+1. [hello_arosa.pas](hello_arosa.pas) — minimal Pascal consumer importing `Arosa.Version`.
+2. [build-hello-arosa.sh](build-hello-arosa.sh) — compiles and links the sample with the matching AROS cross-compiler and `collect-aros` linker.
+3. [inspect_sdk.py](inspect_sdk.py) — checks an SDK ZIP’s CRC, manifest and compiled-file inventory without extracting or modifying it.
+4. [service-pattern.md](service-pattern.md) — documentation-service consumption example derived from AFileManager.
+5. [package-sdk-license.py](package-sdk-license.py) — historical release-maintenance utility for producing a new ZIP containing the developer license; **not required** for the current licensed download.
+6. [AFileManager](https://github.com/danilos/AFileManager) — complete example application source, released separately under MPL-2.0.
 
-The standalone [build-hello-arosa.sh](build-hello-arosa.sh) script compiles [hello_arosa.pas](hello_arosa.pas) without private AROSA sources, finds FPC's generated `link*.res`, then invokes the native AROS `collect-aros` linker with the documented platform libraries. It does **not** create directories or delete existing files. Use a pre-existing **empty** `OUTPUT_DIR`; if it contains anything, the script stops instead of overwriting it.
+## Build HelloAROSA
+
+The SDK does **not** supply Free Pascal, AROS system libraries or the complete operating system. Install a compatible x86_64 AROS toolchain and use the matching Free Pascal RTL and SDK build defines.
 
 ```bash
-# Configure these using your EXISTING installed historical AROS toolchain.
-# These are variable names, not verified fixed paths for your workstation:
 export SDK_ROOT="/path/to/extracted/AROSA-SDK"
-export AROS_FPC="/path/to/aros-compatible/ppcx64"
-export AROS_CC="/path/to/aros-x86_64-cross-gcc"
-export AROS_COLLECT="/path/to/collect-aros"
-export AROS_RTL="/path/to/matching/fpc/rtl/units"
-export AROS_LIB="/path/to/aros/target/libraries"
-export OUTPUT_DIR="/path/to/existing/empty/build-directory"
+export AROS_FPC="/path/to/AROS/ppcrossx64"
+export AROS_CC="x86_64-aros-gcc"
+export AROS_COLLECT="x86_64-aros-collect-aros"
+export AROS_RTL="/path/to/matching/x86_64-aros/rtl/units"
+export AROS_LIB="/path/to/AROS/target/libraries"
+export OUTPUT_DIR="/path/to/pre-existing/empty/output-directory"
 
-# This must match the historical SDK build, not merely a guessed default.
-export AROS_SMP_DEFINE="YOUR_HISTORICAL_SMP_DEFINE"
+export AROS_SMP_DEFINE="AROSPLATFORM_SMP"
 export AROS_BINCOMPAT_DEFINE="AROS_BINCOMPAT"
 export FPC_CPU_SWITCH="-Px86_64"
 
@@ -37,48 +37,23 @@ bash examples/build-hello-arosa.sh
 file "$OUTPUT_DIR/HelloAROSA"
 ```
 
-`YOUR_HISTORICAL_SMP_DEFINE` is deliberately a placeholder because the existing SDK has not published a verified generic value. Check your SDK compiler/build configuration before running. The script verifies presence of `Arosa.Version.ppu` but does not claim compatibility with a different FPC compiler/RTL. `AROS_RTL` and `AROS_LIB` are **not included** in the 0.18.6 SDK ZIP and remain prerequisite target-toolchain assets.
+The script requires an **existing empty output directory** and refuses to overwrite populated directories. The compiler and SDK must agree on target architecture, RTL, binding layouts and AROS ABI. For the historical validated build, `AROSPLATFORM_SMP` was the SMP compile definition.
 
-### Verification status
+## Validation results
 
-- The script follows the historical AFileManager compiler/linker command pattern. Validate it with `bash -n` locally before running; a real AROS compile/link of this particular example is still required.
-- **A real x86_64 AROS compile/link of this minimal example PASSED on Mint-DT on 2026-11-23**, using the historical AROSA environment. The resulting `HelloAROSA` was identified by `file` as `ELF 64-bit LSB relocatable, x86-64, version 1 (AROS Research Operating System), not stripped`. Its execution on a booted AROS system is not yet verified.
-- The owner previously compiled and linked the more substantial [AFileManager](https://github.com/danilos/AFileManager) against historical SDK binaries and verified graphical startup on x86_64 AROS. That is independent evidence for the SDK/toolchain approach, **not** a passing test for this new script.
+- The independent HelloAROSA sample compiled and linked on x86_64 AROS using the historical Free Pascal cross-compiler, AROS GCC and `collect-aros` (23 November 2026).
+- The output was identified as an x86-64 AROS ELF executable.
+- The historical AFileManager example separately compiled, linked and launched its GUI on x86_64 AROS.
+- Executing **HelloAROSA itself** inside booted AROS is not yet verified. General compatibility and long-term runtime stability are not guaranteed.
 
-### AROS link considerations
+## Release integrity
 
-The compiler runs with `-n -TAROS -Cn` and matching `-Fu` and `-Fl` paths. The collector uses `-e __startup_entry`, FPC's `link*.res`, `-lposixc -lstdcio -lstdc -lm -lgcc`, and the x86_64 cross-compiler's actual `libgcc` directory. These options are grounded in the public historical AFileManager builder. Larger examples that use SVG or fonts may additionally need the applicable `libarosa_tvg`, `libarosa_wf`, `libarosa_freetype2_bridge`, `libarosa_nanosvg`, `libarosa_cxxabi`, C++ and FreeType dependencies; do **not** add all those libraries unconditionally to this minimal program.
+The published [licensed ZIP](https://github.com/danilos/AROSA-SDK/releases/tag/v0.18.6.0.0.0-x86_64) contains **482 entries, 481 SHA-256 checksums, 473 compiled artifacts and six third-party notice files**.
 
-## Mint-DT one-directory validation (owner workflow)
-
-For DaniloS's historical test machine, **all extracted SDK files, downloaded examples and build output go under the already authorized `TRANSFER/AFileManager-0.30.19.2.0.0/` directory**. Do not create audit or delivery directories elsewhere. Use an empty dedicated output folder and read, rather than modify, the existing toolchain.
+**SHA-256:** `36e1c7ce16974b8e8456e3fa28a9d8f6048ac563d1eb6e2cfb3c0c8902d37f92`
 
 ```bash
-WORK="/home/danilo/dev/FPC/AIDEa-Ecosystem/aidea_transfer/aidea/TRANSFER/AFileManager-0.30.19.2.0.0"
-SDK="$WORK/AROSA-SDK-0.18.6.0.0.0-x86_64-NOTICES-PRIVATE.zip"
-EXAMPLE="$WORK/AROSA-SDK-example-0.18.6"
-test -f "$SDK" || { echo "Missing reviewed SDK: $SDK" >&2; exit 1; }
-test ! -e "$EXAMPLE" || { echo "Refusing to overwrite existing: $EXAMPLE" >&2; exit 1; }
-mkdir -p "$EXAMPLE/sdk" "$EXAMPLE/output"
-curl -fsSL https://raw.githubusercontent.com/danilos/AROSA-SDK/main/examples/hello_arosa.pas -o "$EXAMPLE/hello_arosa.pas"
-curl -fsSL https://raw.githubusercontent.com/danilos/AROSA-SDK/main/examples/build-hello-arosa.sh -o "$EXAMPLE/build-hello-arosa.sh"
-unzip -q "$SDK" -d "$EXAMPLE/sdk"
-export SDK_ROOT="$EXAMPLE/sdk" OUTPUT_DIR="$EXAMPLE/output"
-# Supply the *existing* toolchain paths/defines from the historical working build:
-# AROS_FPC, AROS_CC, AROS_COLLECT, AROS_RTL, AROS_LIB, AROS_SMP_DEFINE
-bash "$EXAMPLE/build-hello-arosa.sh"
+python3 examples/inspect_sdk.py /path/to/AROSA-SDK-0.18.6.0.0.0-x86_64-LICENSED.zip
 ```
 
-The workflow intentionally does **not** invent compiler paths or SMP settings. The compiler and linker variables must be set using the already working historical AROS toolchain, not substituted with host compilers. This validates the new minimal example and creates all files solely under `TRANSFER/`. **The owner has since confirmed Mint-DT compilation and linking PASS (2026-11-23); running the resulting executable on AROS remains an independent check.**
-
-## What was tested
-
-The owner previously verified x86_64 AFileManager compilation, linking and graphical startup. The **new minimal HelloAROSA example has now also compiled and linked successfully**, but has **not yet been run on AROS**. The host-side validator uses only Python's standard library and can be run against the private 481-file, 480-hash candidate without extracting it.
-
-No SDK binary is included in this examples directory. The original AROSA source remains private; third-party licenses stay with their owners.
-
-## Packaging the official SDK developer license (post-release correction)
-
-The initial GitHub x86_64 SDK asset was published before the actual `SDK-LICENSE.md` was embedded in the ZIP. The [SDK developer license](../SDK-LICENSE.md) is published in this repository; for a self-contained archive, use [package-sdk-license.py](package-sdk-license.py) to add the **byte-identical** official license and update `SHA256SUMS` in a **new archive**. It refuses overwrite, requires the original verified SHA-256 `4779997aff0b6c61ac8047c56918106ba81d57199f11fd3c36671a0cf3bb417c`, verifies the complete manifest and CRC before writing, compares every unchanged file byte for byte, and verifies the new manifest.
-
-The expected counts after packaging are **482 entries, 481 hashes, 473 unchanged compiled artifacts and 6 retained third-party notices**. The new ZIP should be published as a new GitHub Release asset only after successful owner-side validation. The original release asset remains available until the replacement has been uploaded and verified. The script never modifies private AROSA source or the original archive.
+See [SDK release notes](../docs/0.18.6.0.0.0-x86_64-release-notes.md) and the [SDK Developer License](../SDK-LICENSE.md) for terms, supported targets and limitations.
