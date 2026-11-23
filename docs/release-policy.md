@@ -14,7 +14,7 @@ A historical i386 AROSA SDK and independently built public AFileManager source w
 
 ## Public artifacts and licensing
 
-**Neither the historical x86_64 nor i386 SDK binary ZIP has been published.** Both remain subject to component-level redistribution rights clearance, exact license/notice terms and any applicable covered-source obligations. Original AROSA implementation rights are retained by Danilo Sandron; other copyright holders retain their rights. No blanket license grant over AROSA implementations is implied by the [separate MPL-2.0 AFileManager source repository](https://github.com/danilos/AFileManager).
+**The historical x86_64 and i386 SDK ZIPs have not yet been uploaded publicly.** This is a factual publication status, **not** a finding that AROSA code needs permission from an outside authority. Original AROSA implementation copyright is held by **DaniloS**; the validated x86_64 private package contains the authentic ThorVG, Brotli, tinf and NanoSVG notices. Before uploading, the owner needs to attach the intended developer-use license and address any **specific** third-party terms not satisfied by those notices (for example, if covered AROS/FPC code is actually embedded in redistributed SDK objects). The [separate MPL-2.0 AFileManager source repository](https://github.com/danilos/AFileManager) does not relicense AROSA.
 
 The [SDK distribution contract](sdk-distribution-contract.md) currently describes a **proposed**, not operative, binary SDK developer-use policy. No implied publication authorization is created by the passing private package audit.
 
