@@ -1,6 +1,6 @@
 # AROSA SDK distribution contract
 
-Status: **proposed developer-use and binary redistribution terms — review draft, not yet an operative license grant**, 2026-11-23.
+Status: **developer-use license published for SDK 0.18.6.0.0.0**; see [SDK-LICENSE.md](../SDK-LICENSE.md). This document is explanatory release policy, 2026-11-23.
 
 Copyright (c) 2026 DaniloS for original AROSA implementations, subject to other owners' rights in incorporated components.
 
@@ -8,11 +8,11 @@ Copyright (c) 2026 DaniloS for original AROSA implementations, subject to other 
 
 The AROSA SDK enables developers to build applications consuming and providing AROSA capabilities. The SDK is **not** a source publication of the privately developed AROSA platform. Original AROSA SDK code, runtime services, implementation units and bridge code remain controlled by their respective rights holders. AFileManager's separate MPL-2.0 license does not relicense the AROSA platform or its SDK.
 
-This document records the intended developer-use terms for a future SDK release. DaniloS controls authorization for original AROSA code; no external general-purpose ownership clearance is required. Specific terms of incorporated third-party components continue to apply.
+This document explains the developer-use terms adopted for the historical SDK release. DaniloS controls authorization for original AROSA code; no external general-purpose ownership clearance is required. Specific terms of incorporated third-party components continue to apply.
 
-## Proposed permission for future authorized SDK releases
+## Developer permissions for authorized SDK releases
 
-Once DaniloS expressly approves a particular, versioned SDK release and publishes its accompanying license:
+The published [SDK Developer License](../SDK-LICENSE.md) sets the operative permissions for the historical 0.18.6.0.0.0 SDK when distributed under that license:
 
 1. **Use:** Recipients may use the released SDK interfaces, headers, compiled units, objects and link libraries solely to develop, compile, test, link, execute and distribute applications interoperating with compatible AROSA runtimes, subject to component-level terms.
 2. **Application distribution:** Developers retain rights in their independently authored applications. Subject to applicable third-party licenses, they may distribute their applications, including portions of expressly designated AROSA SDK runtime/link code necessarily incorporated by the normal linking process. The released SDK's manifest/license must identify which components carry that permission; unspecified components are not automatically covered.
@@ -22,7 +22,7 @@ Once DaniloS expressly approves a particular, versioned SDK release and publishe
 6. **Compatibility:** The permission applies only to explicitly identified released files/versions. No guarantee is made that different versions or compilers are ABI-compatible, or that i386 support will continue. The SDK shall not be represented as a complete AROSA installation.
 7. **Marks and warranty:** Distribution does not grant rights in project names or marks beyond factual identification of compatibility. Any warranty disclaimer or liability terms require final text in the adopted license and must not conflict with applicable mandatory law.
 
-**Important:** This is a policy draft rather than a complete, legally operative SDK EULA. The actual release must carry a specific final license text, explicit identification of redistributable linked object code, copyright and license notices, source-availability instructions where relevant, and a release manifest. Legal review is optional for the owner's risk management, not an external approval requirement.
+**Important:** The SDK Developer License is the authoritative AROSA-authored code grant, not this explanatory policy. Actual release assets must preserve the third-party notices and accompanying manifest. Any specific rights of third-party incorporated code remain governed by their individual licenses.
 
 ## Intended SDK contents
 
