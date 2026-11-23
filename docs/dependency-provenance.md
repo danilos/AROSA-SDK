@@ -130,6 +130,17 @@ The commits identify a preserved local source baseline matching the *current* AR
 
 Owner compared the already audited five-library x86_64 SDK private ZIP with vendor audit clones (clean Gitea imports). Observed 43 ThorVG `.cpp` files in `AROSA-ThorVG/src`; historical `build-tvg.sh` compiles every such source in its four scanned subdirectories and one original `arosa_tvg.c` glue file. **44 expected objects versus 44 library archive members**. Observed 10 Brotli `.c` files under `c/common` and `c/dec`, and all three tinf sources (`tinflate.c`, `tinfzlib.c`, `adler32.c`); historical `build-wf.sh` also compiles `arosa_wf.c`, giving **14 expected objects versus 14 archive members**. This is a **structural count match**, not a member-by-member names/digests comparison and not byte-identical reproducible build proof; do not mark exact vendor binary provenance as cleared on these counts alone.
 
+## Historical archive member-name correspondence — owner terminal, 2026-11-23
+
+Owner executed a read-only Python audit of the uploaded 0.18.6.0.0.0 x86_64 private SDK ZIP, comparing `ar t` member names to expected outputs reconstructed from the historical `build-tvg.sh` and `build-wf.sh` source naming rules and independently cloned Gitea vendor trees:
+
+| Archive | Expected member names | Actual archive members | Missing | Unexpected | Duplicate | Result |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| `libarosa_tvg.a` | 44 | 44 | 0 | 0 | 0 | PASS |
+| `libarosa_wf.a` | 14 | 14 | 0 | 0 | 0 | PASS |
+
+**Scope:** archive member names and structural source-composition correspondence. Does not prove that the exact source bytes, compiler or build flags from cloned 2026-11-04 Gitea import were used to generate the historical archive. All other release gates remain separate. The user provided this result directly from Mint-DT; no current independent byte-level rerun in the assistant's environment was performed for these source-tree comparisons.
+
 ## Binary release gates
 
 1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
