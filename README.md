@@ -14,7 +14,7 @@ The initial historical baseline is AROSA **0.18.6.0.0.0**, revision `384eeaf`. *
 
 ## Contents and availability
 
-- **[SDK usage examples and first steps](examples/README.md)** — minimal Pascal consumer, archive validator and service-consumption pattern
+- **[SDK usage examples and first steps](examples/README.md)** — minimal Pascal consumer, standalone AROS build-and-link script, archive validator and service-consumption pattern
 - [Release and platform support policy](docs/release-policy.md)
 - [x86_64 build validation record](docs/0.18.6.0.0.0-x86_64-status.md)
 - [i386 historical validation record](docs/0.18.6.0.0.0-status.md)
