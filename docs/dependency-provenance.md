@@ -114,6 +114,18 @@ Historical build helper Git blob IDs at `384eeaf25214142aeeb93792fc45ae0858d67d0
 
 These confirm reachable private source remotes and the current pin alignment, **not the revision historically used to construct the x86_64 SDK archive**. Capture relevant Gitea commit dates, vendor tree hashes and available binary build logs; compare against historical build date and compiled objects. Do not paste credentials or modify the active source checkout.
 
+## Independent Gitea audit clone — owner terminal, 2026-11-23
+
+The user independently cloned three vendor repositories into `~/dev/AROSA-SDK-vendor-audit-0186`, outside the live AROSA working tree. Each clone completed, and `git status --short` printed no changes:
+
+| Repository | HEAD | Commit timestamp (UTC+01:00) | Commit subject |
+| --- | --- | --- | --- |
+| `AROSA-ThorVG` | `cfbfbb9540745e3434922af6498dc32e09be3dfd` | 2026-11-04 17:04:23 | Import AROSA local source baseline: thorvg (2026-11-04) |
+| `AROSA-Brotli` | `0bbd31027957dbc2bb0d09c5908cccfeba1e8d3b` | 2026-11-04 17:04:17 | Import AROSA local source baseline: brotli (2026-11-04) |
+| `AROSA-tinf` | `655c7d23e52be48857b36aa1015be16f9827847e` | 2026-11-04 17:04:23 | Import AROSA local source baseline: tinf (2026-11-04) |
+
+The commits identify a preserved local source baseline matching the *current* AROSA submodule pointers. They were imported on 2026-11-04 and do not by themselves show the source revisions in use when the 0.18.6 SDK binaries were compiled; the historical AROSA commit does not pin the vendor directories. Remaining checks: comparison of archive source-member names against the cloned source tree, compilation timestamps/build logs or reproducible rebuilds, NanoSVG original bridge attribution, and compiled AROSA/FPC/AROS licensing.
+
 ## Binary release gates
 
 1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
