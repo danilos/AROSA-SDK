@@ -99,6 +99,21 @@ The actual **historical** `applications/afilemanager/scripts/build.sh` (from `gi
 
 Next review historical contents of `source/platform/vectorgraphics/build-tvg.sh`, `source/platform/webfont/build-wf.sh`, original NanoSVG build script in AROS tree, and their source tree checksums (not only today's HEAD). Historical vendors' exact revisions, compiled-code license obligations and source correspondence are still unresolved; no binary release.
 
+## Gitea remote availability corroboration — owner terminal, 2026-11-23
+
+Owner authenticated to three **internal** Gitea remotes and obtained `git ls-remote ... HEAD`:
+
+| Repository | Remote HEAD | Current parent AROSA gitlink | Compare |
+| --- | --- | --- | --- |
+| `AROSA-ThorVG.git` | `cfbfbb9540745e3434922af6498dc32e09be3dfd` | same | exact match |
+| `AROSA-Brotli.git` | `0bbd31027957dbc2bb0d09c5908cccfeba1e8d3b` | same | exact match |
+| `AROSA-tinf.git` | `655c7d23e52be48857b36aa1015be16f9827847e` | same | exact match |
+
+Historical build helper Git blob IDs at `384eeaf25214142aeeb93792fc45ae0858d67d07` are:
+`source/platform/vectorgraphics/build-tvg.sh` = `8b2ca768704876ce75c850195b13933c01aed11e` and `source/platform/webfont/build-wf.sh` = `edbd59213b6a47a95d766cba28cf73362d85752b`.
+
+These confirm reachable private source remotes and the current pin alignment, **not the revision historically used to construct the x86_64 SDK archive**. Capture relevant Gitea commit dates, vendor tree hashes and available binary build logs; compare against historical build date and compiled objects. Do not paste credentials or modify the active source checkout.
+
 ## Binary release gates
 
 1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
