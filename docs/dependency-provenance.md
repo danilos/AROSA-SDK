@@ -1,167 +1,34 @@
-# AROSA SDK dependency provenance and redistribution review
+# AROSA SDK — Included libraries and notices
 
-Review date: 2026-11-23. Publication status: **historical SDK binary not yet uploaded; packaging verification passed, final developer-use terms in preparation**.
+**AROSA**  
+*Written for AROS*
 
-## x86_64 candidate — verified directly from uploaded ZIP
+This page describes the components included in the published [AROSA SDK 0.18.6.0.0.0 x86_64 release](https://github.com/danilos/AROSA-SDK/releases/tag/v0.18.6.0.0.0-x86_64).
 
-Historical baseline: AROSA **0.18.6.0.0.0**, source revision `384eeaf25214142aeeb93792fc45ae0858d67d07`.
+## SDK inventory
 
-The corrected 64-bit private archive contains **475 files**: 234 Pascal compiled units (`.ppu`), 234 compiled object files (`.o`), five static libraries (`.a`), `SDK-STATUS.txt` and `SHA256SUMS`. All **474** checksum entries match. ZIP CRC and archive inventory checks passed. The unnecessary historical AFileManager test executable is excluded, and private absolute filesystem paths were removed from the status metadata. No underlying SDK compiled object or unit was changed between the corrected and status-refreshed candidates.
+The licensed ZIP contains 234 compiled Pascal units (`.ppu`), 234 corresponding object files (`.o`), five static libraries (`.a`), the DaniloS `SDK-LICENSE.md`, six third-party notice files, and `SHA256SUMS`.
 
-Five static libraries have x86_64 ELF object members: `libarosa_tvg.a`, `libarosa_wf.a`, `libarosa_nanosvg.a`, `libarosa_freetype2_bridge.a`, and `libarosa_cxxabi.a`.
-
-The historical independent public-source AFileManager build/link and x86_64 graphical startup passed per owner evidence. File operations, shutdown, stability, ABI/toolchain compatibility outside the tested compiler, and general application compatibility are **not verified**.
-
-## Upstream license families and unresolved binary correspondence
-
-| Local component | Reference upstream | Reported upstream license | Required before SDK binary publication |
-| --- | --- | --- | --- |
-| `libarosa_tvg.a` / ThorVG | https://github.com/thorvg/thorvg | MIT | Match actual vendored source revision, modifications, all notices and embedded dependencies |
-| Brotli objects in `libarosa_wf.a` | https://github.com/google/brotli | MIT | Identify actual source revision, included objects, license and copyright notice |
-| tinf objects in `libarosa_wf.a` | https://github.com/jibsen/tinf | zlib | Verify exact fork/revision and original notices |
-| `libarosa_nanosvg.a` | https://github.com/memononen/nanosvg | zlib | Verify exact AROS-local source and modifications |
-| `libarosa_freetype2_bridge.a` | Original AROSA bridge, external FreeType interfaces | Under review | Show bridge object is original and document linked external FreeType requirements |
-| `libarosa_cxxabi.a` | Historical C++ ABI provider | Under review | Check generated code and compiler/runtime provenance |
-| `bindings/*` | FPC and AROS API bindings | Component-specific | Verify source origins and relevant AROS Public License and FPC/RTL conditions |
-| `units/*` | AROSA historical source, possibly external imports | Component-specific | Audit ownership, original versus imported/modified covered code, and required source availability |
-
-Upstream license-family references are **not** evidence that the bundled binaries were built from the referenced revisions. The historical source snapshot did not include the vendor source trees; local historical build steps reused third-party directories and AROS-local NanoSVG. Do not substitute current upstream license text for the exact vendored notices without examining provenance.
-
-Free Pascal's runtime and package licenses commonly include a linking exception, but that does not automatically relicense independently authored AROSA code or any imported third-party code. AROS components may be subject to the AROS Public License. All relevant terms must be assessed at the component level.
-
-## Local source and license evidence — owner terminal, 2026-11-23
-
-In the local AROSA checkout (not the private GitHub API checkout), the owner confirmed:
-
-| Dependency | Local license file | SHA-256 of local license file | Copyright/license evidenced by file excerpt |
-| --- | --- | --- | --- |
-| ThorVG | `thirdparty/thorvg/LICENSE` | `74242cdc4ccaebc73fa04fbd52a538429eae2be7a231f9eaf1dbf59d2bedc16b` | MIT; copyright 2020–2026 ThorVG Project |
-| Brotli | `thirdparty/brotli/LICENSE` | `3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94` | MIT-form permission text; copyright 2009, 2010, 2013–2016 Brotli Authors |
-| tinf | `thirdparty/tinf/LICENSE` | `f39b507b81b9ba1edce7fe742bbd68fda4b852063ce7299274ae97991d48814b` | zlib; copyright 2003–2019 Joergen Ibsen |
-
-The owner also located `nanosvg.h` and `nanosvgrast.h` at `/home/danilo/dev/AROS/dev/AROS/libraries/nanosvg/upstream/`. Their header copyright/license text and source revision have not yet been inspected.
-
-The `git log -1 -- thirdparty/<name>` command returned parent commit `dc8dcedc81dbdd9860f3ef1cc68f08e4ceb403aa` dated 2026-11-04, labelled *register pinned Gitea dependency submodules*. **This does not identify the submodule's own HEAD or prove those files match the historical binary build.** Required follow-up: `git submodule status`, `git -C thirdparty/<name> rev-parse HEAD`, and dirty-status checks; capture actual NanoSVG header license, source revision and modifications. Preserve exact verified notices in the eventual release archive.
-
-## Submodule and NanoSVG checkout findings — owner terminal, 2026-11-23
-
-The local AROSA `git submodule status` reported a leading `-` for each of the following, meaning **not initialized in that checkout**:
-
-- Brotli gitlink: `0bbd31027957dbc2bb0d09c5908cccfeba1e8d3b`
-- ThorVG gitlink: `cfbfbb9540745e3434922af6498dc32e09be3dfd`
-- tinf gitlink: `655c7d23e52be48857b36aa1015be16f9827847e`
-
-The subsequent `git -C thirdparty/{thorvg,brotli,tinf} rev-parse HEAD` returned parent AROSA HEAD `f8579925395a18c9229c2d58b7a1a453cfb67c11`, not a dependency revision, because the child directories were not initialized repositories. The recorded gitlink commits are **candidate pointers, not established source-to-binary correspondence**. Source files/license hashes exist locally, but their origins and correspondence still need verification. The owner also showed extensive unrelated modified/untracked AROSA working-tree files. Do not perform `git clean`, `reset`, or broad submodule updates as part of this audit.
-
-NanoSVG local AROS upstream headers at `dev/AROS/libraries/nanosvg/upstream/` have:
-
-- `nanosvg.h` SHA-256 `e34fd5d084be106cea972d19ce5d27fd96d17ba89f8d06bdceee058420c8b2b0`
-- `nanosvgrast.h` SHA-256 `79a9c5f4db19debf9f3a648a1589e96d92854f245a5cb4f3d823f263785234d8`
-
-Both embedded headers carry Mikko Mononen's 2013–2014 zlib-style copyright/license notice; the parser cites Anti-Grain Geometry 2.4 SVG example (Maxim Shemanarev) and the rasterizer cites stb_truetype rasterizer (Sean Barrett). The local `upstream` directory is **not a Git checkout**. Hashes and notices do not yet prove the packaged `libarosa_nanosvg.a` came from these precise headers; verify build source provenance.
-
-## Vendor source paths and NanoSVG linker references — owner terminal, 2026-11-23
-
-The parent AROSA working tree's `git ls-tree HEAD` confirms Gitlink objects (mode `160000`) with the following exact commit IDs and submodule remotes. These are **recorded revisions of private Gitea mirrors**, not proof of the precise source snapshot actually compiled into the SDK:
-
-| Vendor | Gitlink commit | Configured Gitea submodule URL |
+| Library | Role | Upstream component or provenance |
 | --- | --- | --- |
-| Brotli | `0bbd31027957dbc2bb0d09c5908cccfeba1e8d3b` | `http://gitea.starnet/danilo/AROSA-Brotli.git` |
-| ThorVG | `cfbfbb9540745e3434922af6498dc32e09be3dfd` | `http://gitea.starnet/danilo/AROSA-ThorVG.git` |
-| tinf | `655c7d23e52be48857b36aa1015be16f9827847e` | `http://gitea.starnet/danilo/AROSA-tinf.git` |
+| `libarosa_tvg.a` | Vector graphics integration | ThorVG (MIT) and AROSA integration code |
+| `libarosa_wf.a` | Webfont/decoding support | Brotli (MIT-form), tinf (zlib), and AROSA integration code |
+| `libarosa_nanosvg.a` | SVG parsing/rasterization bridge | NanoSVG (zlib) and AROSA integration code |
+| `libarosa_freetype2_bridge.a` | AROSA font integration | Original AROSA bridge; relies on compatible external FreeType |
+| `libarosa_cxxabi.a` | AROS C++ ABI compatibility | Original AROSA bridge |
 
-Source files are available in the local folders, but earlier `git submodule status` printed `-` for these submodules, and `git -C` fell back to the AROSA parent repository. The owner observed `thirdparty/thorvg/config.h` and `inc/thorvg.h` at depth ≤2; Brotli source is deeper than that scan; tinf source includes `tinfzlib.c`, `tinflate.c`, and `adler32.c`.
+Compiled AROSA-authored components are covered by the [SDK Developer License](../SDK-LICENSE.md). Third-party components retain their own copyrights and applicable license terms. Refer to the exact `THIRD-PARTY-NOTICES/` files included in the ZIP.
 
-NanoSVG linking is controlled by AROSA `scripts/build-nanosvg-aros.sh`, which supports `AROSA_NANOSVG_REFERENCE_ARCHIVE`, and `applications/afilemanager/scripts/build.sh`, which uses a selected NanoSVG archive. The actual NanoSVG source headers are present under the separate AROS tree; **their exact use for the audited x86_64 `.a` is still not established**. The x86_64 package architecture and library checksum have separately passed.
+Some applications also require external AROS system libraries, Free Pascal RTL and FreeType libraries; these are not a complete toolchain bundled inside the SDK.
 
-A separate, read-only build-provenance review should now capture `scripts/build-nanosvg-aros.sh` inputs and relevant ThorVG/Brotli/tinf compiler commands, `git ls-tree <historical-SHA>` gitlinks, and source digests. Do not run `git submodule update` or cleanup against the active AROSA tree just to obtain provenance.
+## Integrity and verification
 
-## Historical 0.18.6 versus current working-tree vendor pins — 2026-11-23
+The published licensed archive has **482 ZIP entries, 481 manifest entries, 473 preserved compiled artifacts and six third-party notice files**. Full ZIP CRC and SHA-256 manifest validation passed.
 
-**Correction to interpretation of the current gitlinks:** owner ran `git ls-tree 384eeaf25214142aeeb93792fc45ae0858d67d07 thirdparty/thorvg thirdparty/brotli thirdparty/tinf` and it printed **no entries**. Thus the current checkout's three Gitea gitlinks are **not recorded at those paths in that historical commit**. Their SHA values cannot be attributed to the historical SDK build, even provisionally, without independent build inputs or source digests. No source-to-binary correspondence claim is made.
+The reviewed historical ThorVG and webfont library member inventories matched the corresponding source compilation layout. That structural result is not a claim of byte-for-byte reproducible vendor builds.
 
-Current `scripts/build-nanosvg-aros.sh` is an architecture-aware *rebuilder*: it reads object names from `AROSA_NANOSVG_REFERENCE_ARCHIVE` (default `$AROS_ROOT/dev/AROS/libraries/nanosvg/build/libarosa_nanosvg.a`), maps each member uniquely to a .c/.cc/.cpp under `NANOSVG_SOURCE_ROOT`, compiles with the selected cross-compiler and archives at `$AROSA_BUILD/nanosvg/root/build/libarosa_nanosvg.a`. It does not prove the historical x86_64 SDK archive was built through this current script or which source revisions its inputs had. Current AFM build script displays `Building ThorVG (libarosa_tvg.a)` and `Building the outline font engine (libarosa_wf.a)`, but those echo lines alone do not identify vendor compilation commands.
+**Official x86_64 release SHA-256:** `36e1c7ce16974b8e8456e3fa28a9d8f6048ac563d1eb6e2cfb3c0c8902d37f92`
 
-Next evidence should prioritize historical versions of the build scripts using `git show 384eeaf...:<path>` (where existing), local SDK builder scripts and generated build logs, actual source checksums and archive member provenance. Read-only collection only; no repo reset, submodule update or private code publication.
+See the [release notes](0.18.6.0.0.0-x86_64-release-notes.md) and [developer examples](../examples/README.md) for usage requirements and tested functionality. The separate i386 target is experimental and not included in this release.
 
-## Exact historical AFM build commands — owner terminal, 2026-11-23
-
-Read-only `git ls-tree 384eeaf25214142aeeb93792fc45ae0858d67d07 thirdparty/` and grep-based inventory show the historical commit **has no `thirdparty/` tree or pinned dependency gitlinks**. This is not evidence that vendor dependencies were absent at build time: the build referenced external checkout trees.
-
-The actual **historical** `applications/afilemanager/scripts/build.sh` (from `git show`) gives the following evidence:
-
-- `NANOSVG_ROOT` defaults to `$AROS_ROOT/dev/AROS/libraries/nanosvg`, with existing archive `$NANOSVG_ROOT/build/libarosa_nanosvg.a`; the script checks it exists.
-- `source/platform/aros/fonts/arosa_freetype2_bridge.c` is compiled with `$AROS_CC -O2 -fno-common` into `$AROSA_BUILD/fontbridge/libarosa_freetype2_bridge.a`.
-- `source/platform/vectorgraphics/build-tvg.sh aros $AROSA_BUILD/tvg` is invoked to construct `libarosa_tvg.a`.
-- `source/platform/webfont/build-wf.sh aros $AROSA_BUILD/<WF_OUT>` is invoked to construct `libarosa_wf.a` (exact `WF_OUT` assignment not yet supplied).
-- Final AFileManager invocation of `$AROS_COLLECT` references `-L` paths for AROS libs, RTL, bindings, NanoSVG, FreeType bridge, ThorVG and webfont, and links `-larosa_tvg -lstdc++`, conditional C++ ABI objects, `-larosa_wf -larosa_freetype2_bridge -lfreetype2 -lposixc -lstdcio -lstdc -lm -lgcc`. The snippet does not itself demonstrate which linker response-file objects include NanoSVG.
-- SDK 0.18.6 current candidate contains five .a libraries and compiled Pascal units; distinguishing bundled .a contents from external `-lfreetype2` and RTL/runtime dependencies is required.
-
-Next review historical contents of `source/platform/vectorgraphics/build-tvg.sh`, `source/platform/webfont/build-wf.sh`, original NanoSVG build script in AROS tree, and their source tree checksums (not only today's HEAD). Historical vendors' exact revisions, compiled-code license obligations and source correspondence are still unresolved; no binary release.
-
-## Gitea remote availability corroboration — owner terminal, 2026-11-23
-
-Owner authenticated to three **internal** Gitea remotes and obtained `git ls-remote ... HEAD`:
-
-| Repository | Remote HEAD | Current parent AROSA gitlink | Compare |
-| --- | --- | --- | --- |
-| `AROSA-ThorVG.git` | `cfbfbb9540745e3434922af6498dc32e09be3dfd` | same | exact match |
-| `AROSA-Brotli.git` | `0bbd31027957dbc2bb0d09c5908cccfeba1e8d3b` | same | exact match |
-| `AROSA-tinf.git` | `655c7d23e52be48857b36aa1015be16f9827847e` | same | exact match |
-
-Historical build helper Git blob IDs at `384eeaf25214142aeeb93792fc45ae0858d67d07` are:
-`source/platform/vectorgraphics/build-tvg.sh` = `8b2ca768704876ce75c850195b13933c01aed11e` and `source/platform/webfont/build-wf.sh` = `edbd59213b6a47a95d766cba28cf73362d85752b`.
-
-These confirm reachable private source remotes and the current pin alignment, **not the revision historically used to construct the x86_64 SDK archive**. Capture relevant Gitea commit dates, vendor tree hashes and available binary build logs; compare against historical build date and compiled objects. Do not paste credentials or modify the active source checkout.
-
-## Independent Gitea audit clone — owner terminal, 2026-11-23
-
-The user independently cloned three vendor repositories into `~/dev/AROSA-SDK-vendor-audit-0186`, outside the live AROSA working tree. Each clone completed, and `git status --short` printed no changes:
-
-| Repository | HEAD | Commit timestamp (UTC+01:00) | Commit subject |
-| --- | --- | --- | --- |
-| `AROSA-ThorVG` | `cfbfbb9540745e3434922af6498dc32e09be3dfd` | 2026-11-04 17:04:23 | Import AROSA local source baseline: thorvg (2026-11-04) |
-| `AROSA-Brotli` | `0bbd31027957dbc2bb0d09c5908cccfeba1e8d3b` | 2026-11-04 17:04:17 | Import AROSA local source baseline: brotli (2026-11-04) |
-| `AROSA-tinf` | `655c7d23e52be48857b36aa1015be16f9827847e` | 2026-11-04 17:04:23 | Import AROSA local source baseline: tinf (2026-11-04) |
-
-The commits identify a preserved local source baseline matching the *current* AROSA submodule pointers. They were imported on 2026-11-04 and do not by themselves show the source revisions in use when the 0.18.6 SDK binaries were compiled; the historical AROSA commit does not pin the vendor directories. Remaining checks: comparison of archive source-member names against the cloned source tree, compilation timestamps/build logs or reproducible rebuilds, NanoSVG original bridge attribution, and compiled AROSA/FPC/AROS licensing.
-
-## Exact structural source-count comparison — owner terminal, 2026-11-23
-
-Owner compared the already audited five-library x86_64 SDK private ZIP with vendor audit clones (clean Gitea imports). Observed 43 ThorVG `.cpp` files in `AROSA-ThorVG/src`; historical `build-tvg.sh` compiles every such source in its four scanned subdirectories and one original `arosa_tvg.c` glue file. **44 expected objects versus 44 library archive members**. Observed 10 Brotli `.c` files under `c/common` and `c/dec`, and all three tinf sources (`tinflate.c`, `tinfzlib.c`, `adler32.c`); historical `build-wf.sh` also compiles `arosa_wf.c`, giving **14 expected objects versus 14 archive members**. This is a **structural count match**, not a member-by-member names/digests comparison and not byte-identical reproducible build proof; do not mark exact vendor binary provenance as cleared on these counts alone.
-
-## Historical archive member-name correspondence — owner terminal, 2026-11-23
-
-Owner executed a read-only Python audit of the uploaded 0.18.6.0.0.0 x86_64 private SDK ZIP, comparing `ar t` member names to expected outputs reconstructed from the historical `build-tvg.sh` and `build-wf.sh` source naming rules and independently cloned Gitea vendor trees:
-
-| Archive | Expected member names | Actual archive members | Missing | Unexpected | Duplicate | Result |
-| --- | ---: | ---: | ---: | ---: | ---: | --- |
-| `libarosa_tvg.a` | 44 | 44 | 0 | 0 | 0 | PASS |
-| `libarosa_wf.a` | 14 | 14 | 0 | 0 | 0 | PASS |
-
-**Scope:** archive member names and structural source-composition correspondence. Does not prove that the exact source bytes, compiler or build flags from cloned 2026-11-04 Gitea import were used to generate the historical archive. All other release gates remain separate. The user provided this result directly from Mint-DT; no current independent byte-level rerun in the assistant's environment was performed for these source-tree comparisons.
-
-## Private notices candidate: complete integrity verification — owner Mint-DT, 2026-11-23
-
-Owner ran a read-only byte-comparison of `AROSA-SDK-0.18.6.0.0.0-x86_64-REVIEW-READY-PRIVATE.zip` and `AROSA-SDK-0.18.6.0.0.0-x86_64-NOTICES-PRIVATE.zip` located beneath the authorized `.../TRANSFER/AFileManager-0.30.19.2.0.0/` delivery folder. User-reported results:
-
-- Compiled `.ppu`, `.o`, `.a` artifacts: **473**; byte-changed: **0**.
-- New SHA256SUMS entries: **480**; absent/unexpected/duplicate entries: **0**; SHA256 mismatches: **0**.
-- Exactly six files added under `THIRD-PARTY-NOTICES/`: ThorVG-LICENSE, Brotli-LICENSE, tinf-LICENSE, NanoSVG-nanosvg.h-NOTICE.txt, NanoSVG-nanosvgrast.h-NOTICE.txt, README.txt. Original files removed: **0**.
-- Total files: **481** (earlier verified ZIP CRC `unzip -t`: pass). Script reported **OVERALL: PASS**.
-
-**Gate CLOSED:** package integrity, checksum coverage, authentic-notice inclusion, and preservation of all compiled artifacts. Original AROSA implementation and bridge code is identified by the project owner as AROSA-authored (**DaniloS**). **Remaining:** finalize the developer-use license and its linked-code scope; confirm any identifiable third-party terms for actually incorporated AROS/FPC/FreeType code; document compatibility limits. Precise historical source-byte reproducibility and extended runtime testing remain technical follow-ups, not a blanket third-party 'clearance' process. PRIVATE candidate; no public SDK binary released.
-
-## Release preparation and verification status
-
-1. **PASS:** Original AROSA bridge and unit authorship has been confirmed by project owner as **DaniloS**, with distinct upstream ownership retained for third-party components. No independent approval is needed to license the original AROSA-authored code.
-2. **PASS:** Authentic ThorVG, Brotli, tinf, and NanoSVG notices packaged; private x86_64 ZIP checksum inventory, CRC, byte-preservation and historical library member-name checks passed.
-3. **To finish:** Adopt and include the owner-approved developer SDK license specifying permitted build, link, execution and application distribution rights. Check only any concrete third-party obligations triggered by code actually included in the SDK; no generic 'rights clearance' is pending.
-4. **Technical follow-ups, not arbitrary publication blockers:** capture precise historical vendor source-to-binary provenance when available; document FPC/AROS ABI assumptions; expand independent consumer runtime testing beyond the previously passed x86_64 graphical startup.
-5. **Publication:** No binary has yet been uploaded; an eventual owner-approved release should identify architecture/version, limitations and complete manifest. i386 remains experimental.
-
-## Historic i386 candidate
-
-The earlier, separate i386 SDK candidate had 234 `.ppu`, 234 `.o`, and four `.a` libraries. Its build/link test passed, but the SDK-built AFileManager did not open on the attempted i386 AROS runtime. i386 is experimental, best-effort and not guaranteed. This review does not upgrade its status.
-
-Original AROSA components copyright (c) 2026 **DaniloS**. Third-party copyrights remain with their respective owners. Nothing in this note grants a blanket license to private AROSA implementation code.
+Copyright for original AROSA code: **DaniloS**. Third-party copyrights remain with their respective owners.
