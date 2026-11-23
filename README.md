@@ -3,7 +3,7 @@
 **AROSA**  
 *Written for AROS*
 
-The phrase “Enterprise-class architecture at Amiga scale” is reserved for the official AROSA 1.0 release; it is not the prerelease SDK tagline. See the [public branding policy](https://github.com/danilos/AROSA-Project/blob/main/BRANDING.md).
+For current prerelease identity, see the [public branding policy](https://github.com/danilos/AROSA-Project/blob/main/BRANDING.md).
 
 Public developer entry point for applications using AROSA capability, service, provider and adapter interfaces on AROS.
 
