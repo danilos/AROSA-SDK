@@ -76,6 +76,14 @@ NanoSVG linking is controlled by AROSA `scripts/build-nanosvg-aros.sh`, which su
 
 A separate, read-only build-provenance review should now capture `scripts/build-nanosvg-aros.sh` inputs and relevant ThorVG/Brotli/tinf compiler commands, `git ls-tree <historical-SHA>` gitlinks, and source digests. Do not run `git submodule update` or cleanup against the active AROSA tree just to obtain provenance.
 
+## Historical 0.18.6 versus current working-tree vendor pins — 2026-11-23
+
+**Correction to interpretation of the current gitlinks:** owner ran `git ls-tree 384eeaf25214142aeeb93792fc45ae0858d67d07 thirdparty/thorvg thirdparty/brotli thirdparty/tinf` and it printed **no entries**. Thus the current checkout's three Gitea gitlinks are **not recorded at those paths in that historical commit**. Their SHA values cannot be attributed to the historical SDK build, even provisionally, without independent build inputs or source digests. No source-to-binary correspondence claim is made.
+
+Current `scripts/build-nanosvg-aros.sh` is an architecture-aware *rebuilder*: it reads object names from `AROSA_NANOSVG_REFERENCE_ARCHIVE` (default `$AROS_ROOT/dev/AROS/libraries/nanosvg/build/libarosa_nanosvg.a`), maps each member uniquely to a .c/.cc/.cpp under `NANOSVG_SOURCE_ROOT`, compiles with the selected cross-compiler and archives at `$AROSA_BUILD/nanosvg/root/build/libarosa_nanosvg.a`. It does not prove the historical x86_64 SDK archive was built through this current script or which source revisions its inputs had. Current AFM build script displays `Building ThorVG (libarosa_tvg.a)` and `Building the outline font engine (libarosa_wf.a)`, but those echo lines alone do not identify vendor compilation commands.
+
+Next evidence should prioritize historical versions of the build scripts using `git show 384eeaf...:<path>` (where existing), local SDK builder scripts and generated build logs, actual source checksums and archive member provenance. Read-only collection only; no repo reset, submodule update or private code publication.
+
 ## Binary release gates
 
 1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
