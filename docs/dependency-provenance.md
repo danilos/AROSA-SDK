@@ -1,6 +1,6 @@
 # AROSA SDK dependency provenance and redistribution review
 
-Review date: 2026-11-23. Publication status: **binary SDK withheld pending component-level rights clearance**.
+Review date: 2026-11-23. Publication status: **historical SDK binary not yet uploaded; packaging verification passed, final developer-use terms in preparation**.
 
 ## x86_64 candidate — verified directly from uploaded ZIP
 
@@ -150,16 +150,15 @@ Owner ran a read-only byte-comparison of `AROSA-SDK-0.18.6.0.0.0-x86_64-REVIEW-R
 - Exactly six files added under `THIRD-PARTY-NOTICES/`: ThorVG-LICENSE, Brotli-LICENSE, tinf-LICENSE, NanoSVG-nanosvg.h-NOTICE.txt, NanoSVG-nanosvgrast.h-NOTICE.txt, README.txt. Original files removed: **0**.
 - Total files: **481** (earlier verified ZIP CRC `unzip -t`: pass). Script reported **OVERALL: PASS**.
 
-**Gate CLOSED:** package integrity, checksum coverage, authentic-notice inclusion, and preservation of all compiled artifacts. **Open gates:** license/copyright review for compiled AROSA units, FPC/AROS bindings, C++ ABI and bridges, historical source-byte-to-binary traceability, independent toolchain/ABI and wider runtime testing. PRIVATE candidate only: no public SDK binary released.
+**Gate CLOSED:** package integrity, checksum coverage, authentic-notice inclusion, and preservation of all compiled artifacts. Original AROSA implementation and bridge code is identified by the project owner as AROSA-authored (**DaniloS**). **Remaining:** finalize the developer-use license and its linked-code scope; confirm any identifiable third-party terms for actually incorporated AROS/FPC/FreeType code; document compatibility limits. Precise historical source-byte reproducibility and extended runtime testing remain technical follow-ups, not a blanket third-party 'clearance' process. PRIVATE candidate; no public SDK binary released.
 
-## Binary release gates
+## Release preparation and verification status
 
-1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
-2. Preserve the authentic copyright and license notices for the actual compiled versions, plus any required source offer/access and modification notices.
-3. Classify all AROSA compiled units and bridge objects by ownership, third-party imports and covered-source obligations; do not assume compiled units are exempt.
-4. Fix and document the exact FPC/AROS SDK ABI, toolchain, and runtime compatibility.
-5. Revalidate the immutable release ZIP, all member hashes and manifest after notice changes, then perform an independent consumer build and runtime smoke test.
-6. Publish a binary release **only when the above gates are explicitly cleared**. Public documentation can be updated independently.
+1. **PASS:** Original AROSA bridge and unit authorship has been confirmed by project owner as **DaniloS**, with distinct upstream ownership retained for third-party components. No independent approval is needed to license the original AROSA-authored code.
+2. **PASS:** Authentic ThorVG, Brotli, tinf, and NanoSVG notices packaged; private x86_64 ZIP checksum inventory, CRC, byte-preservation and historical library member-name checks passed.
+3. **To finish:** Adopt and include the owner-approved developer SDK license specifying permitted build, link, execution and application distribution rights. Check only any concrete third-party obligations triggered by code actually included in the SDK; no generic 'rights clearance' is pending.
+4. **Technical follow-ups, not arbitrary publication blockers:** capture precise historical vendor source-to-binary provenance when available; document FPC/AROS ABI assumptions; expand independent consumer runtime testing beyond the previously passed x86_64 graphical startup.
+5. **Publication:** No binary has yet been uploaded; an eventual owner-approved release should identify architecture/version, limitations and complete manifest. i386 remains experimental.
 
 ## Historic i386 candidate
 
