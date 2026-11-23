@@ -1,27 +1,14 @@
 # AROSA SDK 0.18.6.0.0.0 — Experimental developer preview
 
-Released documentation: 2026-11-23.
+**AROSA**  
+*Written for AROS*
 
-## Platform policy
+The historical x86_64 SDK is [available as a licensed binary release](https://github.com/danilos/AROSA-SDK/releases/tag/v0.18.6.0.0.0-x86_64), including compiled interfaces, native libraries, developer license, third-party notices and SHA-256 manifest.
 
-**x86_64 is now the active development and testing priority. i386 support is experimental, best-effort and not guaranteed.**
+The x86_64 SDK has passed independent AFileManager compilation/linking and graphical startup. The HelloAROSA introductory example also compiled and linked successfully; its runtime execution remains unverified.
 
-## Historical i386 validation
+**i386 AROS remains experimental.** A historical 32-bit build linked successfully, but application runtime startup was not verified. An i386 SDK binary is not published with this release.
 
-Passed: complete historical i386 application compilation and linking, SDK binary compilation, and independent public AFileManager build against precompiled AROSA units. The copied application executable matches the independent build.
+See [x86_64 release notes](docs/0.18.6.0.0.0-x86_64-release-notes.md), [examples](examples/README.md), and [support policy](docs/release-policy.md).
 
-Not passed/not performed: AROS i386 runtime execution, historical x86_64 SDK compilation or runtime. An AGet transfer stalled while preparing a runtime test; no AFileManager startup failure was observed.
-
-## Binary distribution
-
-A cleaned i386 SDK candidate ZIP was generated separately with 234 PPU, 234 O and four A static libraries; no source files or historical test executable. Checksums and archive CRC verified. **This candidate is not a GitHub release binary** and remains withheld from public distribution until component-level copyright/license notices and source-availability obligations are resolved. GitHub documentation is public and issue reports are open.
-
-## Resources
-
-Public application source: https://github.com/danilos/AFileManager
-
-Support policy: https://github.com/danilos/AROSA-SDK/blob/main/docs/release-policy.md
-
-Report issues: https://github.com/danilos/AROSA-SDK/issues
-
-Original project copyright (c) 2026 DaniloS. Third-party rights are reserved.
+Copyright for original AROSA work (c) 2026 **DaniloS**. Incorporated third-party components retain their respective licenses.
