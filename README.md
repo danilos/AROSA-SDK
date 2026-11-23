@@ -14,13 +14,14 @@ The initial historical baseline is AROSA **0.18.6.0.0.0**, revision `384eeaf`. *
 
 ## Contents and availability
 
+- **[SDK usage examples and first steps](examples/README.md)** — minimal Pascal consumer, archive validator and service-consumption pattern
 - [Release and platform support policy](docs/release-policy.md)
 - [x86_64 build validation record](docs/0.18.6.0.0.0-x86_64-status.md)
 - [i386 historical validation record](docs/0.18.6.0.0.0-status.md)
 - [SDK distribution contract](docs/sdk-distribution-contract.md)
 - [Dependency and redistribution review](docs/dependency-provenance.md)
 
-A clean **i386 candidate** archive has been assembled separately. A **private x86_64 SDK** has also been produced (476 files, as reported by the build tool), but no redistributable x86_64 binary artifact has yet been reviewed. **Neither binary SDK is currently published as a GitHub release.** Component-level third-party notices and any applicable covered-source obligations require reconciliation before public binary upload.
+A separate experimental **i386** candidate was assembled. The **private x86_64 SDK** has since passed its ZIP CRC, full SHA-256 manifest and artifact-preservation checks: **481 files, 480 hashes, 473 unchanged compiled artifacts and six bundled third-party notice files**. The binary ZIPs have **not yet been uploaded as GitHub releases**; final developer-use terms and any specifically applicable third-party conditions must accompany publication.
 
 The [public AFileManager source](https://github.com/danilos/AFileManager) retains its MPL-2.0 license. This repository does not grant a blanket license over private AROSA implementation source. The November historical baseline is not claimed to correspond exactly to an October 2026 AFileManager preview executable.
 
