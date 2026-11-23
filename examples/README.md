@@ -47,6 +47,28 @@ file "$OUTPUT_DIR/HelloAROSA"
 
 The compiler runs with `-n -TAROS -Cn` and matching `-Fu` and `-Fl` paths. The collector uses `-e __startup_entry`, FPC's `link*.res`, `-lposixc -lstdcio -lstdc -lm -lgcc`, and the x86_64 cross-compiler's actual `libgcc` directory. These options are grounded in the public historical AFileManager builder. Larger examples that use SVG or fonts may additionally need the applicable `libarosa_tvg`, `libarosa_wf`, `libarosa_freetype2_bridge`, `libarosa_nanosvg`, `libarosa_cxxabi`, C++ and FreeType dependencies; do **not** add all those libraries unconditionally to this minimal program.
 
+## Mint-DT one-directory validation (owner workflow)
+
+For DaniloS's historical test machine, **all extracted SDK files, downloaded examples and build output go under the already authorized `TRANSFER/AFileManager-0.30.19.2.0.0/` directory**. Do not create audit or delivery directories elsewhere. Use an empty dedicated output folder and read, rather than modify, the existing toolchain.
+
+```bash
+WORK="/home/danilo/dev/FPC/AIDEa-Ecosystem/aidea_transfer/aidea/TRANSFER/AFileManager-0.30.19.2.0.0"
+SDK="$WORK/AROSA-SDK-0.18.6.0.0.0-x86_64-NOTICES-PRIVATE.zip"
+EXAMPLE="$WORK/AROSA-SDK-example-0.18.6"
+test -f "$SDK" || { echo "Missing reviewed SDK: $SDK" >&2; exit 1; }
+test ! -e "$EXAMPLE" || { echo "Refusing to overwrite existing: $EXAMPLE" >&2; exit 1; }
+mkdir -p "$EXAMPLE/sdk" "$EXAMPLE/output"
+curl -fsSL https://raw.githubusercontent.com/danilos/AROSA-SDK/main/examples/hello_arosa.pas -o "$EXAMPLE/hello_arosa.pas"
+curl -fsSL https://raw.githubusercontent.com/danilos/AROSA-SDK/main/examples/build-hello-arosa.sh -o "$EXAMPLE/build-hello-arosa.sh"
+unzip -q "$SDK" -d "$EXAMPLE/sdk"
+export SDK_ROOT="$EXAMPLE/sdk" OUTPUT_DIR="$EXAMPLE/output"
+# Supply the *existing* toolchain paths/defines from the historical working build:
+# AROS_FPC, AROS_CC, AROS_COLLECT, AROS_RTL, AROS_LIB, AROS_SMP_DEFINE
+bash "$EXAMPLE/build-hello-arosa.sh"
+```
+
+The workflow intentionally does **not** invent compiler paths or SMP settings. The compiler and linker variables must be set using the already working historical AROS toolchain, not substituted with host compilers. This validates the new minimal example and creates all files solely under `TRANSFER/`. **Do not claim the example passed on Mint-DT until actual terminal output confirms it.**
+
 ## What was tested
 
 The owner previously verified x86_64 AFileManager compilation, linking and graphical startup. The **new minimal example has not yet been compiled or run**. The host-side validator uses only Python's standard library and can be run against the private 481-file, 480-hash candidate without extracting it.
