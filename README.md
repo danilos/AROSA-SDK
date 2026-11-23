@@ -18,6 +18,8 @@ The initial historical baseline is AROSA **0.18.6.0.0.0**, revision `384eeaf`. *
 - [Release and platform support policy](docs/release-policy.md)
 - [x86_64 build validation record](docs/0.18.6.0.0.0-x86_64-status.md)
 - [i386 historical validation record](docs/0.18.6.0.0.0-status.md)
+- [SDK developer license — DaniloS](SDK-LICENSE.md)
+- [x86_64 release notes](docs/0.18.6.0.0.0-x86_64-release-notes.md)
 - [SDK distribution contract](docs/sdk-distribution-contract.md)
 - [Dependency and redistribution review](docs/dependency-provenance.md)
 
