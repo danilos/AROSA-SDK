@@ -1,40 +1,57 @@
 # AROSA SDK distribution contract
 
-Status: **proposed SDK packaging policy**, 2026-11-23.
+Status: **proposed developer-use and binary redistribution terms — review draft, not yet an operative license grant**, 2026-11-23.
 
-## Scope
+Copyright (c) 2026 Danilo Sandron for original AROSA implementations, subject to other owners' rights in incorporated components.
 
-The developer SDK is an interface between public AROSA capability-consuming applications and a versioned AROSA runtime, not a mirror of the private platform source tree.
+## Purpose and separation
 
-Intended SDK components, subject to rights clearance:
+The AROSA SDK enables developers to build applications consuming and providing AROSA capabilities. The SDK is **not** a source publication of the privately developed AROSA platform. Original AROSA SDK code, runtime services, implementation units and bridge code remain controlled by their respective rights holders. AFileManager's separate MPL-2.0 license does not relicense the AROSA platform or its SDK.
+
+This document states an **intended distribution contract** and conditions to approve before any SDK binary publication. It does not override the licenses of third-party components and does not authorize release of the current withheld SDK ZIP.
+
+## Proposed permission for future authorized SDK releases
+
+Once Danilo Sandron expressly approves a particular, versioned SDK release and publishes its accompanying license:
+
+1. **Use:** Recipients may use the released SDK interfaces, headers, compiled units, objects and link libraries solely to develop, compile, test, link, execute and distribute applications interoperating with compatible AROSA runtimes, subject to component-level terms.
+2. **Application distribution:** Developers retain rights in their independently authored applications. Subject to applicable third-party licenses, they may distribute their applications, including portions of expressly designated AROSA SDK runtime/link code necessarily incorporated by the normal linking process. The released SDK's manifest/license must identify which components carry that permission; unspecified components are not automatically covered.
+3. **SDK redistribution:** Republishing, repackaging or mirroring the SDK itself requires separate permission unless the eventual release license expressly grants that right. Linking an application is not, by itself, authorization to redistribute the complete SDK.
+4. **Private platform source:** No permission is granted to copy, publish, sublicense or redistribute nonpublic AROSA service implementations, unpublished provider code, development infrastructure or unrelated repositories.
+5. **Third-party rights:** ThorVG, Brotli, tinf, NanoSVG, FreeType, AROS/AROS Public License-covered materials, Free Pascal/RTL and any other third-party code retain their own notices, attribution, conditions and applicable source-availability duties. The AROSA author cannot waive those conditions.
+6. **Compatibility:** The permission applies only to explicitly identified released files/versions. No guarantee is made that different versions or compilers are ABI-compatible, or that i386 support will continue. The SDK shall not be represented as a complete AROSA installation.
+7. **Marks and warranty:** Distribution does not grant rights in project names or marks beyond factual identification of compatibility. Any warranty disclaimer or liability terms require final text in the adopted license and must not conflict with applicable mandatory law.
+
+**Important:** This is a policy draft rather than a complete, legally operative SDK EULA. The actual release must carry a specific final license text, explicit identification of redistributable linked object code, copyright and license notices, source-availability instructions where relevant, and a release manifest. Counsel review is recommended before adoption.
+
+## Intended SDK contents
+
+Subject to component-by-component rights clearance:
 
 - Public Pascal service/capability contracts, descriptors and documentation.
 - Precompiled target-compatible Free Pascal units and object code necessary for linking applications.
-- Native AROS-facing bridge and graphics/font libraries where redistribution is permitted.
-- Reproducible build tooling, application templates and examples.
-- An explicit machine-readable manifest with architecture, toolchain/ABI, AROSA runtime version, hashes, component origins and dependency/notice references.
+- Native AROS-facing graphics, font, C++ ABI and other bridge libraries that may legally be redistributed.
+- Build instructions, application templates and examples.
+- A manifest identifying the six-component AROSA version, architecture, AROS variant, compiler and RTL constraints, object hashes, third-party notices and build provenance.
 
-## Compatibility
+## Compatibility and validation gates
 
-A release must identify the complete six-component AROSA version, target CPU (`i386` or `x86_64`), AROS target variant, required FPC compiler/RTL and build defines, and any platform ABI compatibility requirements. A matching SDK/runtime pair is required; different versions must not be assumed compatible merely because a unit is named the same.
+1. Consult the authoritative AROSA master registry and exact historical source/build evidence, preserving feature continuity.
+2. Confirm archive file inventory, complete SHA-256 coverage, target ELF architecture and absence of private paths, credentials, test executables and unrelated backups.
+3. Verify origin and distribution rights of each SDK object/library and any linked third-party code; include authentic notices and fulfill source-availability obligations that apply.
+4. Verify a clean consumer build/link without private source paths, then separately test actual runtime operation. Record the specific test coverage.
+5. Publish only architectures that pass their relevant gates, with an immutable release name and checksum.
 
-## Distribution safeguards
+## Historical x86_64 candidate — 0.18.6.0.0.0
 
-1. Check the authoritative AROSA project registry and exact source/build revision before building; reconcile parallel features, preserve existing functionality and document changes.
-2. Confirm the full inventory: no staging snapshots, logs, internal environment paths, backup copies, unrelated executables, credentials, or unintended source material.
-3. Review the origin and permissions of every distributable library/object and bundled third-party dependency. Include accurate attribution, license texts and source-availability information when legally required.
-4. Perform compilation/link verification against the public application repository with no private AROSA source path in the consumer build. Record failures and ABI assumptions without marking them as passed.
-5. Test target runtime behavior separately from build success. Publish architecture-specific artifacts only after each architecture's gates pass.
-6. Release immutable versioned artifacts with checksum manifests and traceable changes.
+The owner reports that the **private** `AROSA-SDK-0.18.6.0.0.0-x86_64-NOTICES-PRIVATE.zip` under the authorized `.../TRANSFER/AFileManager-0.30.19.2.0.0/` directory passed CRC, SHA-256 manifest and byte-preservation tests: 481 files; 480 checksums; 473 compiled unit/object/archive files identical to the previous reviewed private ZIP; six third-party notice files added; no original file removed. The original and new SDK archives have **not** been published.
 
-## Initial candidate: 0.18.6.0.0.0
+An independent public-source AFileManager x86_64 compile/link and graphical startup were previously reported successful. General file operations, stability, all ABI combinations, and broad regression coverage were **not** verified. A separate experimental i386 build/link previously passed, but runtime launch has not been verified.
 
-The i386 private SDK build and independent AFileManager consumer build are verified. The reviewed private bundle is **not** the release artifact: it includes an unnecessary application binary and stale/private-path metadata. Its redistribution, license coverage and AROS runtime behavior remain unapproved.
+**Remaining release gates:** component-specific ownership/third-party obligations for compiled units and bindings; C++ ABI/FreeType/NanoSVG embedded-code distinction; precise historical vendor source-byte-to-binary provenance where needed; adoption of final SDK license; and compatibility documentation. Passing the packaging audit does not close those gates.
 
-The public repository intentionally begins with documentation and the validation record. It contains **no** private AROSA implementations and makes **no** blanket license grant over implementations or precompiled libraries. Component-level licensing must be established before adding distributable files.
+## Developer application lifecycle
 
-## Developer application lifecycle (planned)
+An application declares requested and offered capabilities through descriptors and consumes SDK interfaces. At runtime, AROSA resolves compatible services and providers through capability composition. Both conventional Pascal development and AIDEa-generated application development are intended consumers.
 
-An application declares requested and offered capabilities through descriptors and consumes SDK interfaces. At runtime, AROSA resolves compatible services and providers through capability composition. The SDK is expected to support both conventional Pascal authoring and AIDEa-generated application development.
-
-The first concrete consumer is [AFileManager](https://github.com/danilos/AFileManager).
+The first independently published source consumer is [AFileManager](https://github.com/danilos/AFileManager).
