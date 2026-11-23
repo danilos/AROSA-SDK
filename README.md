@@ -23,7 +23,7 @@ The initial historical baseline is AROSA **0.18.6.0.0.0**, revision `384eeaf`. *
 - [SDK distribution contract](docs/sdk-distribution-contract.md)
 - [Dependency and redistribution review](docs/dependency-provenance.md)
 
-A separate experimental **i386** candidate was assembled. The **private x86_64 SDK** has since passed its ZIP CRC, full SHA-256 manifest and artifact-preservation checks: **481 files, 480 hashes, 473 unchanged compiled artifacts and six bundled third-party notice files**. The binary ZIPs have **not yet been uploaded as GitHub releases**; final developer-use terms and any specifically applicable third-party conditions must accompany publication.
+**The historical x86_64 SDK is now publicly released:** [v0.18.6.0.0.0-x86_64](https://github.com/danilos/AROSA-SDK/releases/tag/v0.18.6.0.0.0-x86_64). GitHub CLI confirmed the release asset `AROSA-SDK-0.18.6.0.0.0-x86_64-NOTICES-PRIVATE.zip` on 23 November 2026. The published upload is the validated 481-file x86_64 SDK ZIP (480 SHA-256 manifest entries, 473 preserved compiled artifacts, six third-party notice files). Owner-reported file SHA-256: `4779997aff0b6c61ac8047c56918106ba81d57199f11fd3c36671a0cf3bb417c`. The file retains the pre-release `NOTICES-PRIVATE` basename as an asset label; it is **publicly accessible** as part of this release. The experimental i386 SDK is **not** part of the release. Source and example documentation remain separately available here.
 
 The [public AFileManager source](https://github.com/danilos/AFileManager) retains its MPL-2.0 license. This repository does not grant a blanket license over private AROSA implementation source. The November historical baseline is not claimed to correspond exactly to an October 2026 AFileManager preview executable.
 
