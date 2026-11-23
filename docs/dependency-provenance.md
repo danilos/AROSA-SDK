@@ -60,6 +60,22 @@ NanoSVG local AROS upstream headers at `dev/AROS/libraries/nanosvg/upstream/` ha
 
 Both embedded headers carry Mikko Mononen's 2013–2014 zlib-style copyright/license notice; the parser cites Anti-Grain Geometry 2.4 SVG example (Maxim Shemanarev) and the rasterizer cites stb_truetype rasterizer (Sean Barrett). The local `upstream` directory is **not a Git checkout**. Hashes and notices do not yet prove the packaged `libarosa_nanosvg.a` came from these precise headers; verify build source provenance.
 
+## Vendor source paths and NanoSVG linker references — owner terminal, 2026-11-23
+
+The parent AROSA working tree's `git ls-tree HEAD` confirms Gitlink objects (mode `160000`) with the following exact commit IDs and submodule remotes. These are **recorded revisions of private Gitea mirrors**, not proof of the precise source snapshot actually compiled into the SDK:
+
+| Vendor | Gitlink commit | Configured Gitea submodule URL |
+| --- | --- | --- |
+| Brotli | `0bbd31027957dbc2bb0d09c5908cccfeba1e8d3b` | `http://gitea.starnet/danilo/AROSA-Brotli.git` |
+| ThorVG | `cfbfbb9540745e3434922af6498dc32e09be3dfd` | `http://gitea.starnet/danilo/AROSA-ThorVG.git` |
+| tinf | `655c7d23e52be48857b36aa1015be16f9827847e` | `http://gitea.starnet/danilo/AROSA-tinf.git` |
+
+Source files are available in the local folders, but earlier `git submodule status` printed `-` for these submodules, and `git -C` fell back to the AROSA parent repository. The owner observed `thirdparty/thorvg/config.h` and `inc/thorvg.h` at depth ≤2; Brotli source is deeper than that scan; tinf source includes `tinfzlib.c`, `tinflate.c`, and `adler32.c`.
+
+NanoSVG linking is controlled by AROSA `scripts/build-nanosvg-aros.sh`, which supports `AROSA_NANOSVG_REFERENCE_ARCHIVE`, and `applications/afilemanager/scripts/build.sh`, which uses a selected NanoSVG archive. The actual NanoSVG source headers are present under the separate AROS tree; **their exact use for the audited x86_64 `.a` is still not established**. The x86_64 package architecture and library checksum have separately passed.
+
+A separate, read-only build-provenance review should now capture `scripts/build-nanosvg-aros.sh` inputs and relevant ThorVG/Brotli/tinf compiler commands, `git ls-tree <historical-SHA>` gitlinks, and source digests. Do not run `git submodule update` or cleanup against the active AROSA tree just to obtain provenance.
+
 ## Binary release gates
 
 1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
