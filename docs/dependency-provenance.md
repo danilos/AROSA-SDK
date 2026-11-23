@@ -29,6 +29,20 @@ Upstream license-family references are **not** evidence that the bundled binarie
 
 Free Pascal's runtime and package licenses commonly include a linking exception, but that does not automatically relicense independently authored AROSA code or any imported third-party code. AROS components may be subject to the AROS Public License. All relevant terms must be assessed at the component level.
 
+## Local source and license evidence — owner terminal, 2026-11-23
+
+In the local AROSA checkout (not the private GitHub API checkout), the owner confirmed:
+
+| Dependency | Local license file | SHA-256 of local license file | Copyright/license evidenced by file excerpt |
+| --- | --- | --- | --- |
+| ThorVG | `thirdparty/thorvg/LICENSE` | `74242cdc4ccaebc73fa04fbd52a538429eae2be7a231f9eaf1dbf59d2bedc16b` | MIT; copyright 2020–2026 ThorVG Project |
+| Brotli | `thirdparty/brotli/LICENSE` | `3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94` | MIT-form permission text; copyright 2009, 2010, 2013–2016 Brotli Authors |
+| tinf | `thirdparty/tinf/LICENSE` | `f39b507b81b9ba1edce7fe742bbd68fda4b852063ce7299274ae97991d48814b` | zlib; copyright 2003–2019 Joergen Ibsen |
+
+The owner also located `nanosvg.h` and `nanosvgrast.h` at `/home/danilo/dev/AROS/dev/AROS/libraries/nanosvg/upstream/`. Their header copyright/license text and source revision have not yet been inspected.
+
+The `git log -1 -- thirdparty/<name>` command returned parent commit `dc8dcedc81dbdd9860f3ef1cc68f08e4ceb403aa` dated 2026-11-04, labelled *register pinned Gitea dependency submodules*. **This does not identify the submodule's own HEAD or prove those files match the historical binary build.** Required follow-up: `git submodule status`, `git -C thirdparty/<name> rev-parse HEAD`, and dirty-status checks; capture actual NanoSVG header license, source revision and modifications. Preserve exact verified notices in the eventual release archive.
+
 ## Binary release gates
 
 1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
