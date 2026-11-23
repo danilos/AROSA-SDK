@@ -5,7 +5,8 @@ Author: **DaniloS**. Historical SDK target: **AROSA 0.18.6.0.0.0**; x86_64 AROS 
 ## Start here
 
 1. [Minimal Pascal SDK consumer](hello_arosa.pas) — imports a compiled AROSA SDK unit using the ordinary Free Pascal `uses` mechanism.
-2. [Build and link the example](build-hello-arosa.sh) — standalone cross-compile + `collect-aros` script using only SDK, matching RTL, compiler and target libraries; writes only to a pre-existing empty output directory.\n3. [Validate an SDK archive](inspect_sdk.py) — runs on the development host, checks its ZIP contents, the complete SHA-256 manifest, and reports what can be imported. **No extraction, no writes.**
+2. [Build and link the example](build-hello-arosa.sh) — standalone cross-compile + `collect-aros` script using only SDK, matching RTL, compiler and target libraries; writes only to a pre-existing empty output directory.
+3. [Validate an SDK archive](inspect_sdk.py) — runs on the development host, checks its ZIP contents, the complete SHA-256 manifest, and reports what can be imported. **No extraction, no writes.**
 4. [Service usage pattern](service-pattern.md) — actual AROSA documentation-service calls taken from the public AFileManager source, with lifecycle/ownership guidance.
 5. [Existing full application](https://github.com/danilos/AFileManager) — the historical public AFileManager source is the largest working integration example. Its original `scripts/build.sh` refers to a **private AROSA build environment**; do not run that script unmodified expecting a standalone SDK build.
 
@@ -39,7 +40,7 @@ file "$OUTPUT_DIR/HelloAROSA"
 
 ### Verification status
 
-- Shell script syntax was checked, and compile→response discovery→collector control flow passed using **mock** compiler/collector executables; this checks script logic only.
+- The script follows the historical AFileManager compiler/linker command pattern. Validate it with `bash -n` locally before running; a real AROS compile/link of this particular example is still required.
 - **A real AROS compile/link of this new minimal example has not yet been performed**, and its successful runtime execution on AROS is unverified.
 - The owner previously compiled and linked the more substantial [AFileManager](https://github.com/danilos/AFileManager) against historical SDK binaries and verified graphical startup on x86_64 AROS. That is independent evidence for the SDK/toolchain approach, **not** a passing test for this new script.
 
