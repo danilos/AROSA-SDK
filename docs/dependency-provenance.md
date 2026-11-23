@@ -43,6 +43,23 @@ The owner also located `nanosvg.h` and `nanosvgrast.h` at `/home/danilo/dev/AROS
 
 The `git log -1 -- thirdparty/<name>` command returned parent commit `dc8dcedc81dbdd9860f3ef1cc68f08e4ceb403aa` dated 2026-11-04, labelled *register pinned Gitea dependency submodules*. **This does not identify the submodule's own HEAD or prove those files match the historical binary build.** Required follow-up: `git submodule status`, `git -C thirdparty/<name> rev-parse HEAD`, and dirty-status checks; capture actual NanoSVG header license, source revision and modifications. Preserve exact verified notices in the eventual release archive.
 
+## Submodule and NanoSVG checkout findings — owner terminal, 2026-11-23
+
+The local AROSA `git submodule status` reported a leading `-` for each of the following, meaning **not initialized in that checkout**:
+
+- Brotli gitlink: `0bbd31027957dbc2bb0d09c5908cccfeba1e8d3b`
+- ThorVG gitlink: `cfbfbb9540745e3434922af6498dc32e09be3dfd`
+- tinf gitlink: `655c7d23e52be48857b36aa1015be16f9827847e`
+
+The subsequent `git -C thirdparty/{thorvg,brotli,tinf} rev-parse HEAD` returned parent AROSA HEAD `f8579925395a18c9229c2d58b7a1a453cfb67c11`, not a dependency revision, because the child directories were not initialized repositories. The recorded gitlink commits are **candidate pointers, not established source-to-binary correspondence**. Source files/license hashes exist locally, but their origins and correspondence still need verification. The owner also showed extensive unrelated modified/untracked AROSA working-tree files. Do not perform `git clean`, `reset`, or broad submodule updates as part of this audit.
+
+NanoSVG local AROS upstream headers at `dev/AROS/libraries/nanosvg/upstream/` have:
+
+- `nanosvg.h` SHA-256 `e34fd5d084be106cea972d19ce5d27fd96d17ba89f8d06bdceee058420c8b2b0`
+- `nanosvgrast.h` SHA-256 `79a9c5f4db19debf9f3a648a1589e96d92854f245a5cb4f3d823f263785234d8`
+
+Both embedded headers carry Mikko Mononen's 2013–2014 zlib-style copyright/license notice; the parser cites Anti-Grain Geometry 2.4 SVG example (Maxim Shemanarev) and the rasterizer cites stb_truetype rasterizer (Sean Barrett). The local `upstream` directory is **not a Git checkout**. Hashes and notices do not yet prove the packaged `libarosa_nanosvg.a` came from these precise headers; verify build source provenance.
+
 ## Binary release gates
 
 1. Record each source directory or source archive with exact Git revision (or source tree digest), modifications, and matching library/object evidence.
