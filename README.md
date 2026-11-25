@@ -31,3 +31,7 @@ The initial historical baseline is AROSA **0.18.6.0.0.0**, revision `384eeaf`. *
 The [public AFileManager source](https://github.com/danilos/AFileManager) retains its MPL-2.0 license. This repository does not grant a blanket license over private AROSA implementation source. The November historical baseline is not claimed to correspond exactly to an October 2026 AFileManager preview executable.
 
 Original AROSA components copyright (c) 2026 **DaniloS**; all third-party copyrights and licenses remain with their respective owners.
+
+## Community and Contribution Principles
+
+See the [Community and Contribution Principles](https://github.com/danilos#community-and-contribution-principles).
